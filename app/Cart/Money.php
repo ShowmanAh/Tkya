@@ -11,6 +11,7 @@ class Money{
     public function __construct($value){
         $this->money = new BaseMoney($value, new Currency('GBP'));
     }
+    // return price formatted
     public function formatted(){
         $formatter = new IntlMoneyFormatter(
             new NumberFormatter('en_GP', NumberFormatter::CURRENCY),
@@ -18,6 +19,10 @@ class Money{
          );
          return $formatter->format($this->money);
 
+    }
+    // return price amount
+    public function amount(){
+        return $this->money->getAmount();
     }
 }
 
