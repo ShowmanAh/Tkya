@@ -19,7 +19,7 @@ class ProductResource extends ProductIndexResource
         //dd($this->variations->groupBy('type.name'));
         // group by return empty result set strict => false in config/database
         return array_merge(parent::toArray($request), [
-            'variations' => ProductVariationsResource::collection(
+            'variations' => ProductVariationsResource::collection(// get product with product variations group by type Name
                 $this->variations->groupBy('type.name'),
                 )
         ]);

@@ -21,10 +21,21 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile']], func
 
 });
 **/
+// ========== begin category endpoints ================
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'namespace'=>'Category'], function(){
     Route::post('mainCategories', 'CategoriesController@Maincategories');
     Route::post('subCategory', 'CategoriesController@subCategories');
     Route::post('categories', 'CategoriesController@categoryWithChildren');
 });
-//Route::resource('products', 'Product\ProductsController');
+// ========== end category endpoints ================
 
+// ========== begin category endpoints ================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'namespace'=>'Product'], function(){
+    Route::post('products', 'ProductsController@getproducts');
+    Route::post('productwithslug', 'ProductsController@show');
+    Route::post('product', 'ProductsController@getProductById');
+    Route::post('productsbycategory', 'ProductsController@getProductByCategory');
+    Route::post('productsWithvariationsbycategory', 'ProductsController@getproductswithVariationsByCategory');
+});
+//Route::resource('products', 'Product\ProductsController');
+//Route::get('product/{id}', 'Product\ProductsController@getProductById');
