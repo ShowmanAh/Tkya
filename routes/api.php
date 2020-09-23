@@ -13,14 +13,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/*
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile']], function(){
  Route::post('categories', 'Category\CategoriesController@index');
  Route::post('products', 'Product\ProductsController@index');
  Route::post('product/{slug}', 'Product\ProductsController@show');
 
- Route::post('hi', function(){
-return 'hi';
- });
 });
-
+**/
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'namespace'=>'Category'], function(){
+    Route::post('mainCategories', 'CategoriesController@Maincategories');
+    Route::post('subCategory', 'CategoriesController@subCategories');
+    Route::post('categories', 'CategoriesController@categoryWithChildren');
+});
+//Route::resource('products', 'Product\ProductsController');
 

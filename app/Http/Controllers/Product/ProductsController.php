@@ -15,11 +15,11 @@ class ProductsController extends Controller
       $products = Product::withScopes($this->scopes())->paginate(10);
       return ProductIndexResource::collection($products);
   }
+
   public function show($slug){
         $product = Product::where('slug', $slug)->first();
         return new ProductResource($product);
-       // dd($product);
-       // return $product;
+
   }
 
   public function scopes(){

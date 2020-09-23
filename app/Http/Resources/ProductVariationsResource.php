@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+//use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductVariationsResource extends JsonResource
@@ -14,6 +16,10 @@ class ProductVariationsResource extends JsonResource
      */
     public function toArray($request)
     {
+        //Property [id] does not exist on this collection instance. in file
+        if ($this->resource instanceof Collection) {
+            return ProductVariationsResource::collection($this->resource);
+        }
         return [
            'id' => $this->id,
            'name' => $this->name,
