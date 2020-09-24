@@ -45,5 +45,10 @@ Route::group(['middleware'=>['api','checkPassword', 'logRoute', 'debugProfile'],
  Route::post('me', 'ProfileUserController@me');
 });
 //=================== end Auth User =======================
+//================== begin cart route =====================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Cart'], function(){
+    Route::post('cart', 'CartController@store');
+});
+//================== begin cart route =====================
 //Route::resource('products', 'Product\ProductsController');
 //Route::get('product/{id}', 'Product\ProductsController@getProductById');

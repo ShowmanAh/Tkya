@@ -20,8 +20,8 @@ class ProductIndexResource extends JsonResource
            'price' => $this->formattedPrice,
            'slug' => $this->slug,
            'description' => $this->description,
-           'stockCount' => $this->stockCount(),
-           'in_stock' => $this->inStock()
+           'stockCount' => (int) $this->stockCount(),
+           'inStock' => $this->inStock()
         ];
     }
 }

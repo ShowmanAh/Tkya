@@ -27,7 +27,7 @@ class ProductVariation extends Model
     }
     // get count product_variation in stock
     public function stockCount(){
-        return $this->stock->first()->sum('pivot.stock');
+        return $this->stock->sum('pivot.stock');
     }
     // tupe has many variation and varition has one type
     public function type(){
@@ -43,8 +43,8 @@ class ProductVariation extends Model
         return $this->belongsToMany(ProductVariation::class, 'product_variation_stock_view')
         ->withPivot(
            [
-               'stock',
-            'in_stock'
+             'stock',
+            'in_stocks'
             ]
         );
     }
