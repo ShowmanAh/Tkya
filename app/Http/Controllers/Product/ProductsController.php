@@ -21,7 +21,7 @@ class ProductsController extends Controller
     }
     // get products by category
   public function getProductByCategory(){
-      $products = ProductIndexResource::collection(Product::withScopes($this->scopes())->paginate(10));
+      $products = ProductIndexResource::collection(Product::withScopes($this->scopes())->paginate($this->paginate_number));
      if($products){
          return $this->returnData('products', $products);
      }
@@ -29,7 +29,7 @@ class ProductsController extends Controller
   // get products with products variation by category
   public function getproductswithVariationsByCategory(){
     $products = ProductResource::collection(
-        Product::withScopes($this->scopes())->paginate(10)
+        Product::with(['variations.stock'])->withScopes($this->scopes())->paginate($this->paginate_number)
     );
     return $this->returnData('products', $products);
 
@@ -37,7 +37,7 @@ class ProductsController extends Controller
  // get product with product variation by slug
   public function show(Request $request){
       try {
-        $product = new ProductResource(Product::where('slug', $request->slug)->firstOrFail());
+        $product = new ProductResource(Product::with(['variations.stock', 'variations.type', 'variations.product'])->where('slug', $request->slug)->firstOrFail());
        // return $product;
         if(!$product){
             return $this->returnError('E001', 'product not found');

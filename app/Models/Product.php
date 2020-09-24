@@ -12,6 +12,17 @@ class Product extends Model
     public function getRouteKeyName(){
         return 'slug';
     }
+     // check stock countproduct_variation  > 0 return true
+     public function inStock(){
+
+        return $this->stockCount() > 0;
+    }
+    // get count product_variation in stock
+    public function stockCount(){
+        return $this->variations->sum(function($variation){
+            return $variation->stockCount();
+        });
+    }
 
     public function scopeWithScopes(Builder $builder, $scopes = []){
          return (new Scoper(request()))->apply($builder, $scopes);

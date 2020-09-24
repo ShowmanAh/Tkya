@@ -20,6 +20,15 @@ class ProductVariation extends Model
     public function PriceVaries(){
         return $this->price->amount() != $this->product->price->amount();
     }
+    // check stock countproduct_variation  > 0 return true
+    public function inStock(){
+        //return (bool) $this->stock->first()->pivot->in_stock;
+        return $this->stockCount() > 0;
+    }
+    // get count product_variation in stock
+    public function stockCount(){
+        return $this->stock->first()->sum('pivot.stock');
+    }
     // tupe has many variation and varition has one type
     public function type(){
         return $this->hasOne(ProductVariationType::class,'id', 'product_variation_type_id');
@@ -29,5 +38,14 @@ class ProductVariation extends Model
     }
     public function stocks(){
         return $this->hasMany(Stock::class);
+    }
+    public function stock(){
+        return $this->belongsToMany(ProductVariation::class, 'product_variation_stock_view')
+        ->withPivot(
+           [
+               'stock',
+            'in_stock'
+            ]
+        );
     }
 }

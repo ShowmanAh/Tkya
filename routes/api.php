@@ -29,7 +29,7 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'name
 });
 // ========== end category endpoints ================
 
-// ========== begin category endpoints ================
+// ========== begin products endpoints ================
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'namespace'=>'Product'], function(){
     Route::post('products', 'ProductsController@getproducts');
     Route::post('productwithslug', 'ProductsController@show');
@@ -37,5 +37,12 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'name
     Route::post('productsbycategory', 'ProductsController@getProductByCategory');
     Route::post('productsWithvariationsbycategory', 'ProductsController@getproductswithVariationsByCategory');
 });
+// =============== end products endpoints ===================
+// =================== begin Auth User =====================
+Route::group(['middleware'=>['api','checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Register', 'prefix'=>'auth'], function(){
+ Route::post('register', 'AuthController@register');
+ Route::post('login', 'AuthController@login');
+});
+//=================== end Auth User =======================
 //Route::resource('products', 'Product\ProductsController');
 //Route::get('product/{id}', 'Product\ProductsController@getProductById');

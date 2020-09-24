@@ -25,7 +25,7 @@ Trait ApiResponseTrait{
         'errNum' => "E000",
         'msg' => $msg,
         $key => $value
-        ]) ;
+        ]);
     }
     public function  returnValidationError($code = "E001", $validator){
             return $this->returnError($code, $validator->errors()->first());
