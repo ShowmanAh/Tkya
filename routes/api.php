@@ -42,6 +42,7 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'], 'name
 Route::group(['middleware'=>['api','checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Register', 'prefix'=>'auth'], function(){
  Route::post('register', 'AuthController@register');
  Route::post('login', 'AuthController@login');
+ Route::post('me', 'ProfileUserController@me');
 });
 //=================== end Auth User =======================
 //Route::resource('products', 'Product\ProductsController');
