@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductVariation;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CartUserResource;
 
 class CartController extends Controller
 {
@@ -15,6 +16,13 @@ class CartController extends Controller
     public function __construct(Cart $cart){
          $this->middleware(['auth:api']);
          $this->cart = $cart;
+    }
+    public function index(Request $request){
+      $userCart = $request->user()->load(
+          ['cart.product', 'cart.product.variations.stock', 'cart.stock']
+        );
+      $cartUser = new CartUserResource($userCart);
+      return $this->returnData('CartUser', $cartUser);
     }
     // user add product to cart with quantity
     public function store(Request $request){
@@ -73,4 +81,5 @@ class CartController extends Controller
     $this->cart->delete($productVariation->id);
 
  }
+
 }

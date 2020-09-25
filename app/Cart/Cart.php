@@ -24,6 +24,10 @@
   public function delete($productId){
       $this->user->cart()->detach($productId);
   }
+  // empty Cart
+  public function empty(){
+      $this->user->cart()->detach();
+  }
   // get products
   public function getByLoad($products){
     //$products = $request->products;
