@@ -28,6 +28,10 @@
   public function empty(){
       $this->user->cart()->detach();
   }
+  // check cart is empty
+  public function isEmpty(){
+      return $this->user->cart->sum('pivot.quantity') === 0;
+  }
   // get products
   public function getByLoad($products){
     //$products = $request->products;
