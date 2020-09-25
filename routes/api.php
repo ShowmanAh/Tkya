@@ -48,6 +48,9 @@ Route::group(['middleware'=>['api','checkPassword', 'logRoute', 'debugProfile'],
 //================== begin cart route =====================
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Cart'], function(){
     Route::post('cart', 'CartController@store');
+    Route::post('increaseQuantity', 'CartController@increaseQuantity');
+    Route::post('updateQuantity', 'CartController@update');
+   // Route::post('cart', 'CartController@update');
 });
 //================== begin cart route =====================
 //Route::resource('products', 'Product\ProductsController');

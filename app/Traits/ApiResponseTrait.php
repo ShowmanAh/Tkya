@@ -204,11 +204,13 @@ Trait ApiResponseTrait{
             else if ($input == "checkoutId")
                 return 'E056';
                 else if ($input == "products")
-                return 'E0567';
-                else if ($input == "products.*.id")
-                return 'E057';
+                return 'E067';
                 else if ($input == "products.*.id")
                 return 'E058';
+                else if ($input == "products.*.quantity")
+                return 'E059';
+                else if ($input == "quantity")
+                return 'E060';
             else
                 return "";
             }
