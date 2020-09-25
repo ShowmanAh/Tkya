@@ -50,6 +50,8 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
     Route::post('cart', 'CartController@store');
     Route::post('increaseQuantity', 'CartController@increaseQuantity');
     Route::post('updateQuantity', 'CartController@update');
+    Route::post('deleteCart', 'CartController@destroy');
+   
    // Route::post('cart', 'CartController@update');
 });
 //================== begin cart route =====================

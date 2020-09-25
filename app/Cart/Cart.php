@@ -20,6 +20,10 @@
           'quantity' => $quantity
       ]);
   }
+  // delete cart
+  public function delete($productId){
+      $this->user->cart()->detach($productId);
+  }
   // get products
   public function getByLoad($products){
     //$products = $request->products;
