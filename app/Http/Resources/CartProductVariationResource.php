@@ -5,8 +5,9 @@ namespace App\Http\Resources;
 use App\Cart\Money;
 use App\Http\Resources\ProductIndexResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\ProductVariationsResource;
 
-class CartProductVariationResource extends JsonResource
+class CartProductVariationResource extends ProductVariationsResource
 {
     /**
      * Transform the resource into an array.

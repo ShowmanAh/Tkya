@@ -18,8 +18,9 @@ class CartController extends Controller
          $this->cart = $cart;
     }
     public function index(Request $request, Cart $cart){
+       $cart->sync();
       $userCart = $request->user()->load(
-          ['cart.product', 'cart.product.variations.stock', 'cart.stock']
+          ['cart.product', 'cart.product.variations.stock', 'cart.stock', 'cart.type']
         );
         /*
       $cartUser =( new CartUserResource($userCart))->additional([
@@ -33,13 +34,17 @@ class CartController extends Controller
         'msg' => 'data successed',
         'CartUser' => $cartUser,
 
-            'meta' => $this->meta($cart)
+            'meta' => $this->meta($cart),
+
         ]) ;
     }
     // get method check empty cart
     public function meta(Cart $cart){
         return [
-            'empty' => $cart->isEmpty()
+            'empty' => $cart->isEmpty(),
+            'subtotal' => $cart->subtotal()->formatted(),
+            'total' => $cart->total()->formatted(),
+            'changed' => $cart->hasChanged()
         ];
     }
     // user add product to cart with quantity

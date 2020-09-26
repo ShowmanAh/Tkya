@@ -16,6 +16,10 @@ class ProductVariation extends Model
         }
         return new Money($value);
     }
+
+    public function minStock($count){
+        return min($this->stockCount(), $count);
+    }
     // check if product variation pric enot equal  product price return true else false
     public function PriceVaries(){
         return $this->price->amount() != $this->product->price->amount();
@@ -27,6 +31,7 @@ class ProductVariation extends Model
     }
     // get count product_variation in stock
     public function stockCount(){
+
         return $this->stock->sum('pivot.stock');
     }
     // tupe has many variation and varition has one type

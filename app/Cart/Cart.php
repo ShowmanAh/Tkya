@@ -1,8 +1,11 @@
 <?php
+
+use App\Cart\Money;
  namespace App\Cart;
  use App\User;
  class Cart{
       protected $user;
+      protected $changed;
   public function __construct(User $user){
      $this->user = $user;
   }
@@ -19,6 +22,7 @@
       $this->user->cart()->updateExistingPivot($productId,[
           'quantity' => $quantity
       ]);
+
   }
   // delete cart
   public function delete($productId){
@@ -32,6 +36,33 @@
   public function isEmpty(){
       return $this->user->cart->sum('pivot.quantity') === 0;
   }
+  // calc subtotal amount for product
+  public function subtotal(){
+      $subtotal = $this->user->cart->sum(function($product){
+          return $product->price->amount() * $product->pivot->quantity;
+      });
+      return new Money($subtotal);
+  }
+  // calc total fpr products
+  public function total(){
+     return  $this->subtotal();
+  }
+// check if user quantity > quantity in stock or not if > put user quantity = quantity in stock
+  public function sync(){
+      $this->user->cart->each(function ($product){
+        $quantity = $product->minStock($product->pivot->quantity);
+       // dd($quantity);
+       $this->changed = $quantity != $product->pivot->quantity;
+       $product->pivot->update([
+           'quantity' => $quantity
+       ]);
+      });
+  }
+  // check if quantity value changed or no
+  public function hasChanged(){
+      return $this->changed;
+  }
+
   // get products
   public function getByLoad($products){
     //$products = $request->products;
