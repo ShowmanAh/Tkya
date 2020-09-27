@@ -211,6 +211,14 @@ Trait ApiResponseTrait{
                 return 'E059';
                 else if ($input == "quantity")
                 return 'E060';
+                else if ($input == "address_1")
+                return 'E061';
+                else if ($input == "city")
+                return 'E062';
+                else if ($input == "postal_code")
+                return 'E063';
+                else if ($input == "country_id")
+                return 'E064';
             else
                 return "";
             }

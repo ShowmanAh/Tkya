@@ -55,6 +55,20 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
 
    // Route::post('cart', 'CartController@update');
 });
-//================== begin cart route =====================
+//================== end cart route =====================
+
+// ================ begin Address Route ===================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Address'], function(){
+    Route::post('addresses', 'AddressesController@index');
+    Route::post('address', 'AddressesController@store');
+});
+// ================ End Address Route   ===================
+// ================ begin countries Route ===================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Country'], function(){
+    Route::post('countries', 'CountriesController@index');
+
+});
+// ================ End countries Route   ===================
+
 //Route::resource('products', 'Product\ProductsController');
 //Route::get('product/{id}', 'Product\ProductsController@getProductById');

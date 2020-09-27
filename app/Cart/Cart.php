@@ -49,6 +49,7 @@ use App\Cart\Money;
   }
 // check if user quantity > quantity in stock or not if > put user quantity = quantity in stock
   public function sync(){
+     
       $this->user->cart->each(function ($product){
         $quantity = $product->minStock($product->pivot->quantity);
        // dd($quantity);
