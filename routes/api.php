@@ -61,6 +61,7 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Address'], function(){
     Route::post('addresses', 'AddressesController@index');
     Route::post('address', 'AddressesController@store');
+    Route::post('addressShiping', 'AddressesController@store');
 });
 // ================ End Address Route   ===================
 // ================ begin countries Route ===================
@@ -69,6 +70,13 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
 
 });
 // ================ End countries Route   ===================
+// ================ begin AddrssByShipping Route ===================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Address'], function(){
+    Route::post('addressShipping', 'AddressShipingController@action');
+
+});
+// ================ End AddrssByShipping Route   ===================
+
 
 //Route::resource('products', 'Product\ProductsController');
 //Route::get('product/{id}', 'Product\ProductsController@getProductById');
