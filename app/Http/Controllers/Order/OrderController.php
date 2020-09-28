@@ -7,6 +7,7 @@ use App\Models\Address;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Traits\ApiResponseTrait;
+use App\Events\Order\OrderCreated;
 use App\Rules\ValidShippingMethod;
 use App\Http\Controllers\Controller;
 
@@ -57,6 +58,7 @@ class OrderController extends Controller
         });
        // dd($products);
        $order->products()->sync($products);
+       event(new OrderCreated($order)); // empty cart when user  make order
 
     }
     public function createOrder(Request $request, Cart $cart){
