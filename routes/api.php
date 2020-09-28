@@ -75,7 +75,12 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
     Route::post('addressShipping', 'AddressShipingController@action');
 
 });
-// ================ End AddrssByShipping Route   ===================
+// ================ End Order Route   ===================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Order'], function(){
+    Route::post('order', 'OrderController@store');
+
+});
+// ================ End Order Route   ===================
 
 
 //Route::resource('products', 'Product\ProductsController');

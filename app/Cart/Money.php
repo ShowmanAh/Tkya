@@ -1,8 +1,8 @@
 <?php
 namespace App\Cart;
-use Money\Money as BaseMoney;
 use Money\Currency;
 use NumberFormatter;
+use Money\Money as BaseMoney;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
 
@@ -23,6 +23,14 @@ class Money{
     // return price amount
     public function amount(){
         return $this->money->getAmount();
+    }
+    // taxes for delivery
+    public function add(Money $money){
+     $this->money = $this->money->add($money->insstance());
+     return $this;
+    }
+    public function insstance(){
+        return $this->money;
     }
 }
 

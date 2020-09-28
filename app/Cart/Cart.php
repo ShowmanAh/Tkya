@@ -1,13 +1,21 @@
 <?php
-
+namespace App\Cart;
 use App\Cart\Money;
- namespace App\Cart;
+use App\Models\ShippingMethod;
  use App\User;
  class Cart{
       protected $user;
-      protected $changed;
+      protected $changed = false;
+      protected $shipping;
+
   public function __construct(User $user){
      $this->user = $user;
+  }
+  // get tax delivery for total products
+  public function withShipping($shippingId){
+     // dd('h');
+      $this->shipping = ShippingMethod::find($shippingId);
+      return $this;
   }
   // add products by user authenticated
   public function add($products){
@@ -43,13 +51,17 @@ use App\Cart\Money;
       });
       return new Money($subtotal);
   }
-  // calc total fpr products
+  // calc total fpr products with tax delivery
   public function total(){
+      if($this->shipping){
+         // dd($this->shipping);
+         return $this->subtotal()->add($this->shipping->price);// total = subtotal + shipping (tax delivery)
+      }
      return  $this->subtotal();
   }
 // check if user quantity > quantity in stock or not if > put user quantity = quantity in stock
   public function sync(){
-     
+
       $this->user->cart->each(function ($product){
         $quantity = $product->minStock($product->pivot->quantity);
        // dd($quantity);

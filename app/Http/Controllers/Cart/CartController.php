@@ -34,16 +34,16 @@ class CartController extends Controller
         'msg' => 'data successed',
         'CartUser' => $cartUser,
 
-            'meta' => $this->meta($cart),
+            'meta' => $this->meta($cart, $request),
 
         ]) ;
     }
     // get method check empty cart
-    public function meta(Cart $cart){
+    public function meta(Cart $cart, Request $request){
         return [
             'empty' => $cart->isEmpty(),
             'subtotal' => $cart->subtotal()->formatted(),
-            'total' => $cart->total()->formatted(),
+            'total' => $cart->withShipping($request->shipping_method_id)->total()->formatted(),
             'changed' => $cart->hasChanged()
         ];
     }

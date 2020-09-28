@@ -219,6 +219,11 @@ Trait ApiResponseTrait{
                 return 'E063';
                 else if ($input == "country_id")
                 return 'E064';
+                else if ($input == "address_id")
+                return 'E065';
+                else if ($input == "shipping_method_id")
+                return 'E065';
+
             else
                 return "";
             }
