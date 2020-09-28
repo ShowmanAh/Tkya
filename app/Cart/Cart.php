@@ -11,6 +11,10 @@ use App\Models\ShippingMethod;
   public function __construct(User $user){
      $this->user = $user;
   }
+  // user cart
+  public function products(){
+      return $this->user->cart;
+  }
   // get tax delivery for total products
   public function withShipping($shippingId){
      // dd('h');

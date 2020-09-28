@@ -14,7 +14,8 @@ class Order extends Model
     protected $fillable = [
       'address_id',
       'shipping_method_id',
-      'status'
+      'status',
+      'subtotal'
     ];
     public static function boot(){
         parent::boot();
@@ -30,5 +31,11 @@ class Order extends Model
      }
      public function shippingMethod(){
         return $this->belongsTo(shippingMethod::class);
+     }
+     // relation between order and product_variation
+     public function products(){
+       return $this->belongsToMany(ProductVariation::class, 'product_variation_order')
+         ->withPivot(['quantity'])
+         ->withTimestamps();
      }
 }
