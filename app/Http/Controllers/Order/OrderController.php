@@ -57,7 +57,13 @@ class OrderController extends Controller
             'required',
             'exists:shipping_methods,id',
             new ValidShippingMethod(request()->address_id)
-        ]
+        ],
+        'payment_method_id' => [
+            'required',
+          Rule::exists('payment_methods', 'id')->where(function ($query){
+             $query->where('user_id', request()->user()->id);
+         })
+        ],
 
      ] ;
      $validator = Validator::make($request->all(), $rules);
@@ -83,7 +89,7 @@ class OrderController extends Controller
     }
     public function createOrder(Request $request, Cart $cart){
       return $request->user()->orders()->create(
-            array_merge( $request->only(['address_id', 'shipping_method_id']), [
+            array_merge( $request->only(['address_id', 'shipping_method_id', 'payment_method_id']), [
                 'subtotal' => $cart->subtotal()->amount()
             ])
 

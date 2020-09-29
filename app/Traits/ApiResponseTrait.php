@@ -223,6 +223,8 @@ Trait ApiResponseTrait{
                 return 'E065';
                 else if ($input == "shipping_method_id")
                 return 'E065';
+                else if ($input == "payment_method_id")
+                return 'E066';
 
             else
                 return "";

@@ -16,7 +16,8 @@ class Order extends Model
       'address_id',
       'shipping_method_id',
       'status',
-      'subtotal'
+      'subtotal',
+      'payment_method_id'
     ];
     public static function boot(){
         parent::boot();
