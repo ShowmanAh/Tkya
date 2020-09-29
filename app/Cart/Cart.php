@@ -8,7 +8,7 @@ use App\Models\ShippingMethod;
       protected $changed = false;
       protected $shipping;
 
-  public function __construct(User $user){
+  public function __construct($user){
      $this->user = $user;
   }
   // user cart
@@ -46,7 +46,7 @@ use App\Models\ShippingMethod;
   }
   // check cart is empty
   public function isEmpty(){
-      return $this->user->cart->sum('pivot.quantity') === 0;
+      return $this->user->cart->sum('pivot.quantity') <= 0;
   }
   // calc subtotal amount for product
   public function subtotal(){
@@ -69,7 +69,10 @@ use App\Models\ShippingMethod;
       $this->user->cart->each(function ($product){
         $quantity = $product->minStock($product->pivot->quantity);
        // dd($quantity);
-       $this->changed = $quantity != $product->pivot->quantity;
+       if ($quantity != $product->pivot->quantity) {
+           $this->changed = true;
+       }
+      // $this->changed = $quantity != $product->pivot->quantity;
        $product->pivot->update([
            'quantity' => $quantity
        ]);

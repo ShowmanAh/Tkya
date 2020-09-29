@@ -65,6 +65,8 @@ class Kernel extends HttpKernel
         'logRoute' => \App\Http\Middleware\LogRoute::class,
         'checkPassword' => \App\Http\Middleware\CheckPassword::class,
         'debugProfile' => \App\Http\Middleware\ProfileJsonResponse::class,
+        'cart.sync' => \App\Http\Middleware\Cart\Sync::class,
+        'cart.empty' => \App\Http\Middleware\Cart\IsNotEmpty::class,
 
     ];
 }

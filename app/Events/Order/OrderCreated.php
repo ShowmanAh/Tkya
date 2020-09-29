@@ -2,26 +2,19 @@
 
 namespace App\Events\Order;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
+use App\Models\Order;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
+
 
 class OrderCreated
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, SerializesModels;
+    protected $order;
 
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(Order $order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -29,8 +22,10 @@ class OrderCreated
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
+    /*
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
     }
+    **/
 }

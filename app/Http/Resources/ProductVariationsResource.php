@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 //use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection;
+use App\Http\Resources\ProductIndexResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductVariationsResource extends JsonResource
@@ -27,7 +28,8 @@ class ProductVariationsResource extends JsonResource
            'priceVaries' => $this->PriceVaries(),
            'stockCount' => (int) $this->stockCount(),
            'Type' => $this->type->name,
-           'inStock' => $this->inStock()
+           'inStock' => $this->inStock(),
+           'product' => new ProductIndexResource($this->product)
         ];
     }
 }

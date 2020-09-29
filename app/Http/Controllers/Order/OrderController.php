@@ -10,6 +10,7 @@ use App\Traits\ApiResponseTrait;
 use App\Events\Order\OrderCreated;
 use App\Rules\ValidShippingMethod;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
@@ -17,14 +18,31 @@ class OrderController extends Controller
     protected $cart;
     public function __construct(){
         $this->middleware(['auth:api']);
+        $this->middleware(['cart.sync', 'cart.empty'])->only('store');
       //  $this->cart = $cart;
     }
-
+    public function index(Request $request){
+       $orders = $request->user()->orders()->with([
+           'products',
+           'products.stock',
+           'products.type',
+          'products.product',
+          'products.product.variations',
+          'products.product.variations.stock',
+          'address',
+          'shippingMethod'
+       ])->latest()->paginate(10);
+       $orders = OrderResource::collection($orders);
+       return $this->returnData('order', $orders);
+    }
     public function store(Request $request, Cart $cart){
         // check cart is empty
+      // $cart->sync();
+      /*
         if ($cart->isEmpty()) {
              return $this->returnError(400, 'Cart empty');
         }
+**/
    // $address = Address::find($request->address_id);
      $rules = [
          // check user_id equal to auth()->user()->id
@@ -58,7 +76,9 @@ class OrderController extends Controller
         });
        // dd($products);
        $order->products()->sync($products);
+     //  $order->load([ 'shippingMethod']);
        event(new OrderCreated($order)); // empty cart when user  make order
+      return new OrderResource($order);
 
     }
     public function createOrder(Request $request, Cart $cart){

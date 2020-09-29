@@ -77,6 +77,7 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
 });
 // ================ End Order Route   ===================
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Order'], function(){
+    Route::post('orders', 'OrderController@index');
     Route::post('order', 'OrderController@store');
 
 });

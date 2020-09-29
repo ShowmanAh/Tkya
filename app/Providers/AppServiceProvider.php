@@ -14,6 +14,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // register Cart Class
           $this->app->singleton(Cart::class, function($app){
+              if($app->auth->user()){
+                 $app->auth->user()->load([
+                   'cart.stock'
+                 ]);
+              }
            return new Cart($app->auth->user());
           });
     }
