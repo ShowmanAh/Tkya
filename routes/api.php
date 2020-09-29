@@ -83,6 +83,12 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
 });
 // ================ End Order Route   ===================
 
+// ================ begin payment Route ===================
+Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Payment'], function(){
+    Route::post('payments', 'PaymentMethodController@index');
+
+});
+// ================ End payment Route   ===================
 
 //Route::resource('products', 'Product\ProductsController');
 //Route::get('product/{id}', 'Product\ProductsController@getProductById');
