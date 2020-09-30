@@ -87,6 +87,9 @@ Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'names
 Route::group(['middleware'=>['checkPassword', 'logRoute', 'debugProfile'],'namespace'=>'Payment'], function(){
     Route::post('payments', 'PaymentMethodController@index');
 
+     Route::post('storePayment', 'PaymentMethodController@store');
+
+
 });
 // ================ End payment Route   ===================
 
